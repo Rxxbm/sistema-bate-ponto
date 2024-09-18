@@ -1,8 +1,6 @@
 import { UniqueEntityUUID } from "../value-objects/unique-id/unique-id";
 import { InMemoryRepository } from "./in-memory.repository";
 
-//mock class
-
 class Pessoa {
   id: UniqueEntityUUID | string;
   nome: string;
@@ -60,5 +58,18 @@ describe("Testando a Classe Abstrata InMemoryRepository", () => {
       id: "123",
       nome: "Maria",
     });
+  });
+
+  test("Deve listar todas as entidades com sucesso", async () => {
+    const arrange = [
+      { id: "123", nome: "João" },
+      { id: "456", nome: "Maria" },
+      { id: "789", nome: "José" },
+      { id: "101", nome: "Pedro" },
+    ];
+    arrange.forEach(async (pessoa) => {
+      await repository.save(pessoa);
+    });
+    expect(await repository.findAll()).toEqual(arrange);
   });
 });
