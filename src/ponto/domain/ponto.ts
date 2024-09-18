@@ -25,6 +25,10 @@ export class Ponto {
     return this.props.checkin || new Date();
   }
 
+  get checkout(): Date {
+    return this.props.checkout || null;
+  }
+
   private set checkin(value: Date) {
     if (value > new Date()) {
       throw new Error("A data de checkin não pode ser maior que a data atual");
