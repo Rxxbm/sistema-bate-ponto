@@ -31,4 +31,15 @@ describe("Testes Unitarios da Classe Ponto", () => {
       new Error("A data de checkout não pode ser menor que a data de checkin")
     );
   });
+
+  test("Deve criar um ponto com sucesso", () => {
+    const ponto = new Ponto({
+      id: "1",
+      funcionario_id: "1",
+    });
+
+    expect(ponto).toBeInstanceOf(Ponto);
+    expect(ponto.id).toBe("1");
+    expect(ponto.funcionario_id).toBe("1");
+  });
 });
