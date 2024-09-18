@@ -1,3 +1,5 @@
+import { UniqueEntityUUID } from "../../@thirdparty/domain/value-objects/unique-id/unique-id";
+
 export type pontoProps = {
   id: string;
   funcionario_id: string;
@@ -7,7 +9,7 @@ export type pontoProps = {
 
 export class Ponto {
   constructor(public readonly props: pontoProps) {
-    this.props.id = props.id;
+    this.id = props.id ?? UniqueEntityUUID.generate();
     this.props.funcionario_id = props.funcionario_id;
     this.checkin = props.checkin ?? new Date();
     this.checkout = props.checkout ?? null;
@@ -29,6 +31,11 @@ export class Ponto {
     return this.props.checkout || null;
   }
 
+  private set id(value: string) {
+    const id = new UniqueEntityUUID(value);
+    this.props.id = id.value;
+  }
+
   private set checkin(value: Date) {
     if (value > new Date()) {
       throw new Error("A data de checkin não pode ser maior que a data atual");
@@ -47,5 +54,9 @@ export class Ponto {
 
   fechar_ponto() {
     this.props.checkout = new Date();
+  }
+
+  update(funciona_id: string) {
+    this.props.funcionario_id = funciona_id;
   }
 }
