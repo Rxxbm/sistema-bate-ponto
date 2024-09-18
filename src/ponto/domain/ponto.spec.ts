@@ -2,9 +2,9 @@ import { Ponto } from "./ponto";
 
 jest.mock("../../@thirdparty/domain/value-objects/unique-id/unique-id", () => {
   return {
-    UniqueEntityUUID: jest.fn().mockImplementation(() => {
+    UniqueEntityUUID: jest.fn().mockImplementation((id) => {
       return {
-        value: "any_id",
+        value: id || "any_id",
       };
     }),
   };
@@ -75,5 +75,4 @@ describe("Testes Unitarios da Classe Ponto", () => {
 
     expect(ponto.funcionario_id).toBe("2");
   });
-  
 });
