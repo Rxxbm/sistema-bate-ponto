@@ -33,7 +33,7 @@ export class Ponto {
   }
 
   private set checkout(value: Date) {
-    if (value < this.checkin) {
+    if (value && value < this.checkin) {
       throw new Error(
         "A data de checkout não pode ser menor que a data de checkin"
       );
