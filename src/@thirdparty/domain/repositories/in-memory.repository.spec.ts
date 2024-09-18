@@ -35,4 +35,16 @@ describe("Testando a Classe Abstrata InMemoryRepository", () => {
       new Error(`Entidade não encontrada com o id invalid_id`)
     );
   });
+
+  test("Deve deletar uma entidade com sucesso", async () => {
+    const pessoa = {
+      id: "123",
+      nome: "João",
+    };
+    await repository.save(pessoa);
+    await repository.delete("123");
+    await expect(repository._getid("123")).rejects.toThrow(
+      new Error(`Entidade não encontrada com o id 123`)
+    );
+  });
 });
