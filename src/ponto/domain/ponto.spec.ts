@@ -1,5 +1,15 @@
 import { Ponto } from "./ponto";
 
+jest.mock("../../@thirdparty/domain/value-objects/unique-id/unique-id", () => {
+  return {
+    UniqueEntityUUID: jest.fn().mockImplementation(() => {
+      return {
+        value: "any_id",
+      };
+    }),
+  };
+});
+
 describe("Testes Unitarios da Classe Ponto", () => {
   test("Deve emitir um erro se o checkin for maior que a data atual", () => {
     const data = new Date();
@@ -54,4 +64,16 @@ describe("Testes Unitarios da Classe Ponto", () => {
     expect(ponto.checkout).toBeInstanceOf(Date);
     expect(ponto.checkout).not.toBeNull();
   });
+
+  test("Deve atualizar o funcionario_id com sucesso", () => {
+    const ponto = new Ponto({
+      id: "1",
+      funcionario_id: "1",
+    });
+
+    ponto.update("2");
+
+    expect(ponto.funcionario_id).toBe("2");
+  });
+  
 });
