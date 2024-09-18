@@ -16,9 +16,11 @@ class Repository extends InMemoryRepository<Pessoa> {
 
 describe("Testando a Classe Abstrata InMemoryRepository", () => {
   let repository: Repository;
+
   beforeEach(() => {
     repository = new Repository();
   });
+
   test("Deve salvar uma entidade com sucesso", async () => {
     const pessoa = {
       id: "123",
@@ -26,5 +28,11 @@ describe("Testando a Classe Abstrata InMemoryRepository", () => {
     };
     await repository.save(pessoa);
     expect(await repository.findById("123")).toEqual(pessoa);
+  });
+
+  test("Deve emitir um erro caso a entidade não seja encontrada", async () => {
+    await expect(repository._getid("invalid_id")).rejects.toThrow(
+      new Error(`Entidade não encontrada com o id invalid_id`)
+    );
   });
 });
