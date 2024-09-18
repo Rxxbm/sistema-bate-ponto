@@ -42,4 +42,16 @@ describe("Testes Unitarios da Classe Ponto", () => {
     expect(ponto.id).toBe("1");
     expect(ponto.funcionario_id).toBe("1");
   });
+
+  test("Deve fechar um ponto com sucesso", () => {
+    const ponto = new Ponto({
+      id: "1",
+      funcionario_id: "1",
+    });
+
+    ponto.fechar_ponto();
+
+    expect(ponto.checkout).toBeInstanceOf(Date);
+    expect(ponto.checkout).not.toBeNull();
+  });
 });
