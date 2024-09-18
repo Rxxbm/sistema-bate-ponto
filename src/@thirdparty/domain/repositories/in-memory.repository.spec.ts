@@ -47,4 +47,18 @@ describe("Testando a Classe Abstrata InMemoryRepository", () => {
       new Error(`Entidade não encontrada com o id 123`)
     );
   });
+
+  test("Deve atualizar uma entidade com sucesso", async () => {
+    const pessoa = {
+      id: "123",
+      nome: "João",
+    };
+    await repository.save(pessoa);
+    pessoa.nome = "Maria";
+    await repository.update(pessoa);
+    expect(await repository.findById("123")).toEqual({
+      id: "123",
+      nome: "Maria",
+    });
+  });
 });
