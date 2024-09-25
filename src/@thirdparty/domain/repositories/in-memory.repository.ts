@@ -1,5 +1,5 @@
 import { UniqueEntityUUID } from "../value-objects/unique-id/unique-id";
-import { RepositoryInterface } from "./in-memory.repository.interface";
+import { RepositoryInterface } from "./repository.interface";
 
 interface EntityWithId {
   id: string | UniqueEntityUUID;
