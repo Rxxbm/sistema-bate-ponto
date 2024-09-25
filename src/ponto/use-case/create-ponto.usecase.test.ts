@@ -46,4 +46,26 @@ describe("createPontoUseCase", () => {
     });
     expect(result).toEqual(ponto);
   });
+
+  it("deve retornar um erro se o empresa_id for invalido", async () => {
+    const input: Input = {
+      empresa_id: "invalid_empresa_id",
+      funcionario_id: "any_funcionario_id",
+    };
+
+    const spy = jest.spyOn(pontoRepository, "save");
+
+    (findEmpresaById.execute as jest.Mock).mockRejectedValue(
+      new Error("Empresa não encontrada")
+    );
+
+    await expect(useCase.execute(input)).rejects.toThrow(
+      "Empresa não encontrada"
+    );
+    expect(findEmpresaById.execute).toHaveBeenCalledWith({
+      id: input.empresa_id,
+    });
+    expect(findFuncionarioById.execute).not.toHaveBeenCalled();
+    expect(spy).not.toHaveBeenCalled();
+  });
 });
