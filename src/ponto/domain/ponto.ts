@@ -3,6 +3,7 @@ import { UniqueEntityUUID } from "../../@thirdparty/domain/value-objects/unique-
 export type pontoProps = {
   id: string;
   funcionario_id: string;
+  empresa_id: string; // Novo campo para associar à empresa
   checkin?: Date;
   checkout?: Date;
 };
@@ -11,6 +12,7 @@ export class Ponto {
   constructor(public readonly props: pontoProps) {
     this.id = props.id ?? UniqueEntityUUID.generate();
     this.props.funcionario_id = props.funcionario_id;
+    this.props.empresa_id = props.empresa_id; // Associando a empresa
     this.checkin = props.checkin ?? new Date();
     this.checkout = props.checkout ?? null;
   }
@@ -21,6 +23,10 @@ export class Ponto {
 
   get funcionario_id() {
     return this.props.funcionario_id;
+  }
+
+  get empresa_id() {
+    return this.props.empresa_id; // Getter para empresa_id
   }
 
   get checkin(): Date {
@@ -56,7 +62,8 @@ export class Ponto {
     this.props.checkout = new Date();
   }
 
-  update(funciona_id: string) {
-    this.props.funcionario_id = funciona_id;
+  update(funcionario_id: string, empresa_id: string) {
+    this.props.funcionario_id = funcionario_id;
+    this.props.empresa_id = empresa_id;
   }
 }
