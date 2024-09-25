@@ -4,6 +4,7 @@ import {
   IsOptional,
   IsDate,
   validate,
+  ValidationError,
 } from "class-validator";
 
 export class PontoDTO {
@@ -32,6 +33,21 @@ export class PontoDTO {
   }
 
   async validate() {
-    return validate(this);
+    const errors = await validate(this);
+    if (errors.length > 0) {
+      return this.formatErrors(errors);
+    }
+    return [];
+  }
+
+  private formatErrors(errors: ValidationError[]): string[] {
+    return errors
+      .map((error) => {
+        if (error.constraints) {
+          return Object.values(error.constraints);
+        }
+        return [];
+      })
+      .flat();
   }
 }
