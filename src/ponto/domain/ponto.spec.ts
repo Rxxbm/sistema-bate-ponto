@@ -20,6 +20,7 @@ describe("Testes Unitarios da Classe Ponto", () => {
           id: "1",
           funcionario_id: "1",
           checkin: data,
+          empresa_id: "1",
         })
     ).toThrow(
       new Error("A data de checkin não pode ser maior que a data atual")
@@ -36,6 +37,7 @@ describe("Testes Unitarios da Classe Ponto", () => {
           id: "1",
           funcionario_id: "1",
           checkout: data,
+          empresa_id: "1",
         })
     ).toThrow(
       new Error("A data de checkout não pode ser menor que a data de checkin")
@@ -46,6 +48,7 @@ describe("Testes Unitarios da Classe Ponto", () => {
     const ponto = new Ponto({
       id: "1",
       funcionario_id: "1",
+      empresa_id: "1",
     });
 
     expect(ponto).toBeInstanceOf(Ponto);
@@ -57,6 +60,7 @@ describe("Testes Unitarios da Classe Ponto", () => {
     const ponto = new Ponto({
       id: "1",
       funcionario_id: "1",
+      empresa_id: "1",
     });
 
     ponto.fechar_ponto();
@@ -69,10 +73,12 @@ describe("Testes Unitarios da Classe Ponto", () => {
     const ponto = new Ponto({
       id: "1",
       funcionario_id: "1",
+      empresa_id: "1",
     });
 
-    ponto.update("2");
+    ponto.update("any_funcionario_id", "any_empresa_id");
 
-    expect(ponto.funcionario_id).toBe("2");
+    expect(ponto.funcionario_id).toBe("any_funcionario_id");
+    expect(ponto.empresa_id).toBe("any_empresa_id");
   });
 });
