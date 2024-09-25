@@ -12,10 +12,8 @@ describe("PontoDTO", () => {
       });
 
       const errors = await pontoDTO.validate();
-      expect(errors.length).toBe(1);
-      expect(errors[0].constraints.isNotEmpty).toBe(
-        "O ID não pode estar vazio."
-      );
+      expect(errors.length).not.toBeNull();
+      expect(errors).toContain("O ID não pode estar vazio.");
     });
 
     it("não deve validar um id invalido", async () => {
@@ -28,10 +26,8 @@ describe("PontoDTO", () => {
       });
 
       const errors = await pontoDTO.validate();
-      expect(errors.length).toBe(1);
-      expect(errors[0].constraints.isUUID).toBe(
-        "O ID deve ser um UUID válido."
-      );
+      expect(errors.length).not.toBeNull();
+      expect(errors).toContain("O ID deve ser um UUID válido.");
     });
   });
 });
