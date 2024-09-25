@@ -6,11 +6,7 @@ class Pessoa {
   nome: string;
 }
 
-class Repository extends InMemoryRepository<Pessoa> {
-  constructor() {
-    super();
-  }
-}
+class Repository extends InMemoryRepository<Pessoa> {}
 
 describe("Testando a Classe Abstrata InMemoryRepository", () => {
   let repository: Repository;
