@@ -1,7 +1,7 @@
 import { UniqueEntityUUID } from "../../@thirdparty/domain/value-objects/unique-id/unique-id";
 
 export type pontoProps = {
-  id: string;
+  id?: string;
   funcionario_id: string;
   empresa_id: string; // Novo campo para associar à empresa
   checkin?: Date;
