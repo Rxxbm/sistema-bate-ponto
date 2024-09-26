@@ -1,10 +1,11 @@
 import { RepositoryInterface } from "../../@thirdparty/domain/repositories/repository.interface";
 import { UseCase } from "../../@thirdparty/use-case/use-case.interface";
 import { Ponto } from "../domain/ponto";
+import { PontoRepository } from "../infra/ponto.repository";
 
 export class createPontoUseCase implements UseCase<Input, Output> {
   constructor(
-    private readonly pontoRepository: RepositoryInterface<Ponto>,
+    private readonly pontoRepository: PontoRepository,
     private readonly findEmpresaById: UseCase<any, any>,
     private readonly findFuncionarioById: UseCase<any, any>
   ) {}
@@ -14,8 +15,16 @@ export class createPontoUseCase implements UseCase<Input, Output> {
     await this.findEmpresaById.execute({ id: empresa_id });
     await this.findFuncionarioById.execute({ id: funcionario_id });
 
+    const alreadyExists =
+      await this.pontoRepository.findOpenPontoByFuncionarioId(funcionario_id);
+
+    if (alreadyExists) {
+      throw new Error("Já existe um ponto aberto para esse funcionário");
+    }
+
     const ponto = new Ponto(data);
     await this.pontoRepository.save(ponto);
+
     return ponto;
   }
 }
