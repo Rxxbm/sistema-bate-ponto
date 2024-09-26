@@ -33,8 +33,9 @@ describe("createPontoUseCase", () => {
       funcionario_id: "any_funcionario_id",
     };
 
+    const spy = jest.spyOn(pontoRepository, "save");
+
     const ponto = new Ponto(input);
-    await pontoRepository.save(ponto);
 
     const result = await useCase.execute(input);
 
@@ -44,6 +45,7 @@ describe("createPontoUseCase", () => {
     expect(findFuncionarioById.execute).toHaveBeenCalledWith({
       id: input.funcionario_id,
     });
+    expect(spy).toHaveBeenCalledWith(ponto);
     expect(result).toEqual(ponto);
   });
 
@@ -67,5 +69,19 @@ describe("createPontoUseCase", () => {
     });
     expect(findFuncionarioById.execute).not.toHaveBeenCalled();
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  it("deve retornar um erro se o funcionario já possuir um ponto aberto", async () => {
+    const input: Input = {
+      empresa_id: "any_empresa_id",
+      funcionario_id: "any_funcionario_id_with_open_ponto",
+    };
+
+    const ponto = new Ponto(input);
+    await useCase.execute(ponto);
+
+    await expect(useCase.execute(input)).rejects.toThrow(
+      new Error("Já existe um ponto aberto para esse funcionário")
+    );
   });
 });
