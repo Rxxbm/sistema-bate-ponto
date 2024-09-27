@@ -1,4 +1,3 @@
-import { RepositoryInterface } from "../../@thirdparty/domain/repositories/repository.interface";
 import { UseCase } from "../../@thirdparty/use-case/use-case.interface";
 import { Ponto } from "../domain/ponto";
 import { PontoRepository } from "../infra/ponto.repository";
