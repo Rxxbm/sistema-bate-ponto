@@ -2,11 +2,14 @@ import { createPontoUseCase, Input, Output } from "./create-ponto.usecase";
 import { UseCase } from "../../@thirdparty/use-case/use-case.interface";
 import { Ponto } from "../domain/ponto";
 import { PontoInMemoryRepository } from "../infra/ponto.repository";
+import { Queue } from "../../@thirdparty/infra/queue.interface";
 
 describe("createPontoUseCase", () => {
   let pontoRepository: PontoInMemoryRepository;
   let findEmpresaById: UseCase<any, any>;
   let findFuncionarioById: UseCase<any, any>;
+  let findConfiguracaoByEmpresaId: UseCase<any, any>;
+  let queue: Queue;
   let useCase: createPontoUseCase;
 
   beforeEach(() => {
@@ -17,13 +20,23 @@ describe("createPontoUseCase", () => {
     } as unknown as UseCase<any, any>;
 
     findFuncionarioById = {
-      execute: jest.fn(),
+      execute: jest.fn().mockResolvedValue({ email: "any_email" }),
     } as unknown as UseCase<any, any>;
+
+    findConfiguracaoByEmpresaId = {
+      execute: jest.fn().mockResolvedValue({ intervalo_maximo: 60 }),
+    } as unknown as UseCase<any, any>;
+
+    queue = {
+      add: jest.fn(),
+    } as unknown as Queue;
 
     useCase = new createPontoUseCase(
       pontoRepository,
       findEmpresaById,
-      findFuncionarioById
+      findFuncionarioById,
+      findConfiguracaoByEmpresaId,
+      queue
     );
   });
 
@@ -69,6 +82,24 @@ describe("createPontoUseCase", () => {
     });
     expect(findFuncionarioById.execute).not.toHaveBeenCalled();
     expect(spy).not.toHaveBeenCalled();
+  });
+
+  it("deve retornar um erro se o funcionario_id for invalido", async () => {
+    const input: Input = {
+      empresa_id: "any_empresa_id",
+      funcionario_id: "invalid_funcionario_id",
+    };
+
+    (findFuncionarioById.execute as jest.Mock).mockRejectedValue(
+      new Error("Funcionário não encontrado")
+    );
+
+    await expect(useCase.execute(input)).rejects.toThrow(
+      "Funcionário não encontrado"
+    );
+    expect(findFuncionarioById.execute).toHaveBeenCalledWith({
+      id: input.funcionario_id,
+    });
   });
 
   it("deve retornar um erro se o funcionario já possuir um ponto aberto", async () => {
