@@ -36,7 +36,7 @@ export class createPontoUseCase implements UseCase<Input, Output> {
     await this.queue.add(
       "verificar-ponto",
       {
-        employee_id: funcionario_id,
+        funcionario_id: funcionario_id,
         email: funcionario.email,
       },
       {
