@@ -2,14 +2,14 @@ import { createPontoUseCase, Input, Output } from "./create-ponto.usecase";
 import { UseCase } from "../../@thirdparty/use-case/use-case.interface";
 import { Ponto } from "../domain/ponto";
 import { PontoInMemoryRepository } from "../infra/ponto.repository";
-import { Queue } from "../../@thirdparty/infra/queue.interface";
+import { QueueInterface } from "../../@thirdparty/infra/queue.interface";
 
 describe("createPontoUseCase", () => {
   let pontoRepository: PontoInMemoryRepository;
   let findEmpresaById: UseCase<any, any>;
   let findFuncionarioById: UseCase<any, any>;
   let findConfiguracaoByEmpresaId: UseCase<any, any>;
-  let queue: Queue;
+  let queue: QueueInterface;
   let useCase: createPontoUseCase;
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe("createPontoUseCase", () => {
 
     queue = {
       add: jest.fn(),
-    } as unknown as Queue;
+    } as unknown as QueueInterface;
 
     useCase = new createPontoUseCase(
       pontoRepository,
