@@ -1,4 +1,4 @@
-import { Queue } from "../../@thirdparty/infra/queue.interface";
+import { QueueInterface } from "../../@thirdparty/infra/queue.interface";
 import { UseCase } from "../../@thirdparty/use-case/use-case.interface";
 import { Ponto } from "../domain/ponto";
 import { PontoRepository } from "../infra/ponto.repository";
@@ -9,7 +9,7 @@ export class createPontoUseCase implements UseCase<Input, Output> {
     private readonly findEmpresaById: UseCase<any, any>,
     private readonly findFuncionarioById: UseCase<any, any>,
     private readonly findConfiguracaoByEmpresaId: UseCase<any, any>,
-    private readonly queue: Queue
+    private readonly queue: QueueInterface
   ) {}
 
   async execute(data: Input): Promise<Output> {
