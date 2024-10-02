@@ -78,4 +78,22 @@ describe("ListEmpresaPontosUseCase", () => {
 
     expect(result).toEqual(expectedPonto);
   });
+
+  it("deve retonar todos os pontos de funcionario_id", async () => {
+    let input: Input = { funcionario_id: "jane" };
+    let expectedPonto: Ponto[] = arrange.filter(
+      (ponto) => ponto.funcionario_id === "jane"
+    );
+
+    let result = await useCase.execute(input);
+
+    expect(result).toEqual(expectedPonto);
+
+    input = { funcionario_id: "john" };
+    expectedPonto = arrange.filter((ponto) => ponto.funcionario_id === "john");
+
+    result = await useCase.execute(input);
+
+    expect(result).toEqual(expectedPonto);
+  });
 });
