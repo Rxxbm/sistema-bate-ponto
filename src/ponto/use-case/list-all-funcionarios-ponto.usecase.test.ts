@@ -59,4 +59,23 @@ describe("ListEmpresaPontosUseCase", () => {
 
     expect(result).toEqual(expectedPonto);
   });
+
+  it("deve retorna pontos fechados de funcionario_id", async () => {
+    let input: Input = { funcionario_id: "jane", status: "fechado" };
+    let expectedPonto: Ponto[] = closedPontos.filter(
+      (ponto) => ponto.funcionario_id === "jane"
+    );
+    let result = await useCase.execute(input);
+
+    expect(result).toEqual(expectedPonto);
+
+    input = { funcionario_id: "john", status: "fechado" };
+    expectedPonto = closedPontos.filter(
+      (ponto) => ponto.funcionario_id === "john"
+    );
+
+    result = await useCase.execute(input);
+
+    expect(result).toEqual(expectedPonto);
+  });
 });
