@@ -60,4 +60,21 @@ describe("PontoInMemoryRepository", () => {
     const pontos = await repository.findAll();
     expect(pontos).toEqual(arrange);
   });
+
+  it("deve listar todos os pontos de uma empresa no repositorio", async () => {
+    const arrange = [
+      new Ponto({ ...ponto, id: "1", empresa_id: "1" }),
+      new Ponto({ ...ponto, id: "2", empresa_id: "1" }),
+      new Ponto({ ...ponto, id: "3", empresa_id: "2" }),
+      new Ponto({ ...ponto, id: "4", empresa_id: "2" }),
+    ];
+
+    arrange.forEach(async (ponto) => await repository.save(ponto));
+
+    let pontos = await repository.findByEmpresaId("1");
+    expect(pontos).toEqual([arrange[0], arrange[1]]);
+
+    pontos = await repository.findByEmpresaId("2");
+    expect(pontos).toEqual([arrange[2], arrange[3]]);
+  });
 });
