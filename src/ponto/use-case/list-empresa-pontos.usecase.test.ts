@@ -104,4 +104,47 @@ describe("ListEmpresaPontosUseCase", () => {
 
     expect(output).toEqual(expectedOutput);
   });
+
+  it("deve retornar todos os pontos de empresa_id se o usuario for ADMIN", async () => {
+    const input: Input = {
+      usuario_id: "any_usuarioId",
+      empresa_id: "1",
+    };
+
+    findUsuarioById.execute.mockResolvedValue({ role: "ADMIN" });
+
+    const output = await listEmpresaPontosUseCase.execute(input);
+
+    const expectedOutput = arrange.filter((ponto) => ponto.empresa_id === "1");
+
+    expect(output).toEqual(expectedOutput);
+  });
+
+  it("deve retornar todos os pontos abertos e fechados de empresa_id se o usuario for ADMIN", async () => {
+    let input: Input = {
+      usuario_id: "any_usuarioId",
+      empresa_id: "1",
+      status: "aberto",
+    };
+
+    findUsuarioById.execute.mockResolvedValue({ role: "ADMIN" });
+
+    let output = await listEmpresaPontosUseCase.execute(input);
+
+    let expectedOutput = openPontos.filter((ponto) => ponto.empresa_id === "1");
+
+    expect(output).toEqual(expectedOutput);
+
+    input = {
+      usuario_id: "any_usuarioId",
+      empresa_id: "1",
+      status: "fechado",
+    };
+
+    output = await listEmpresaPontosUseCase.execute(input);
+
+    expectedOutput = closedPontos.filter((ponto) => ponto.empresa_id === "1");
+
+    expect(output).toEqual(expectedOutput);
+  });
 });
