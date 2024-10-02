@@ -69,4 +69,23 @@ describe("ListEmpresaPontosUseCase", () => {
 
     expect(output).toEqual(expectedOutput);
   });
+
+  it("deve retornar todos os pontos fechados de empresa_id se o usuario for RH", async () => {
+    const input: Input = {
+      usuario_id: "any_usuarioId",
+      empresa_id: "1",
+      status: "fechado",
+    };
+
+    findUsuarioById.execute.mockResolvedValue({ role: "RH" });
+    findFuncionarioByUsuarioId.execute.mockResolvedValue({ empresa_id: "1" });
+
+    const output = await listEmpresaPontosUseCase.execute(input);
+
+    const expectedOutput = closedPontos.filter(
+      (ponto) => ponto.empresa_id === "1"
+    );
+
+    expect(output).toEqual(expectedOutput);
+  });
 });
