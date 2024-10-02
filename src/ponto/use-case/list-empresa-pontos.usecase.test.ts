@@ -88,4 +88,20 @@ describe("ListEmpresaPontosUseCase", () => {
 
     expect(output).toEqual(expectedOutput);
   });
+
+  it("deve retornar todos os pontos de empresa_id se o usuario for RH e o status não é informado", async () => {
+    const input: Input = {
+      usuario_id: "any_usuarioId",
+      empresa_id: "1",
+    };
+
+    findUsuarioById.execute.mockResolvedValue({ role: "RH" });
+    findFuncionarioByUsuarioId.execute.mockResolvedValue({ empresa_id: "1" });
+
+    const output = await listEmpresaPontosUseCase.execute(input);
+
+    const expectedOutput = arrange.filter((ponto) => ponto.empresa_id === "1");
+
+    expect(output).toEqual(expectedOutput);
+  });
 });
