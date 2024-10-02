@@ -147,4 +147,18 @@ describe("ListEmpresaPontosUseCase", () => {
 
     expect(output).toEqual(expectedOutput);
   });
+
+  it("deve retornar um erro se o funcionario RH não pertencer a empresa_id ou não for encontrado", async () => {
+    const input: Input = {
+      usuario_id: "any_usuarioId",
+      empresa_id: "1",
+    };
+
+    findUsuarioById.execute.mockResolvedValue({ role: "RH" });
+    findFuncionarioByUsuarioId.execute.mockResolvedValue({ empresa_id: "2" });
+
+    await expect(listEmpresaPontosUseCase.execute(input)).rejects.toThrow(
+      "Funcionário não encontrado ou não pertence a empresa"
+    );
+  });
 });
