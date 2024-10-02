@@ -16,9 +16,11 @@ export class ListEmpresaPontosUseCase implements UseCase<Input, Output> {
     }
 
     if (status === "fechado") {
-      const pontos = await this.pontoRepository.findAllClosedPontoByEmpresaId(
-        funcionario_id
-      );
+      const pontos =
+        await this.pontoRepository.findAllClosedPontoByFuncionarioId(
+          funcionario_id
+        );
+      console.log("CAE O VALOR " + pontos);
       return pontos;
     }
 
