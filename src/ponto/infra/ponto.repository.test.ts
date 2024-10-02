@@ -22,7 +22,6 @@ describe("PontoInMemoryRepository", () => {
       empresa_id: "any_empresa_id",
       funcionario_id: "any_funcionario_id",
       checkin: new Date(),
-      checkout: new Date(),
     };
   });
 
@@ -71,10 +70,39 @@ describe("PontoInMemoryRepository", () => {
 
     arrange.forEach(async (ponto) => await repository.save(ponto));
 
+    const closedPonto = new Ponto({ ...ponto, id: "5", empresa_id: "1" });
+    console.log(closedPonto);
+    closedPonto.fechar_ponto();
+
+    await repository.save(closedPonto);
+
     let pontos = await repository.findByEmpresaId("1");
-    expect(pontos).toEqual([arrange[0], arrange[1]]);
+    console.log(pontos);
+    expect(pontos).toEqual([arrange[0], arrange[1], closedPonto]);
 
     pontos = await repository.findByEmpresaId("2");
+    expect(pontos).toEqual([arrange[2], arrange[3]]);
+  });
+
+  it("deve listar todos os pontos abertos de uma empresa no repositorio", async () => {
+    const arrange = [
+      new Ponto({ ...ponto, id: "1", empresa_id: "1" }),
+      new Ponto({ ...ponto, id: "2", empresa_id: "1" }),
+      new Ponto({ ...ponto, id: "3", empresa_id: "2" }),
+      new Ponto({ ...ponto, id: "4", empresa_id: "2" }),
+    ];
+
+    arrange.forEach(async (ponto) => await repository.save(ponto));
+
+    const closedPonto = new Ponto({ ...ponto, id: "5", empresa_id: "1" });
+    closedPonto.fechar_ponto();
+
+    await repository.save(closedPonto);
+
+    let pontos = await repository.findAllOpenPontoByEmpresaId("1");
+    expect(pontos).toEqual([arrange[0], arrange[1]]);
+
+    pontos = await repository.findAllOpenPontoByEmpresaId("2");
     expect(pontos).toEqual([arrange[2], arrange[3]]);
   });
 });
