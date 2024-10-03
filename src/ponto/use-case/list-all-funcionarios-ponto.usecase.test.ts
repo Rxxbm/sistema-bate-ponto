@@ -1,5 +1,5 @@
 import {
-  ListEmpresaPontosUseCase,
+  ListFuncionarioPontosUseCase,
   Input,
 } from "./list-all-funcionarios-ponto.usecase";
 import {
@@ -10,7 +10,7 @@ import { Ponto } from "../domain/ponto";
 
 describe("ListEmpresaPontosUseCase", () => {
   let pontoRepository: PontoRepository;
-  let useCase: ListEmpresaPontosUseCase;
+  let useCase: ListFuncionarioPontosUseCase;
 
   const arrange = [
     new Ponto({ funcionario_id: "john", empresa_id: "1" }),
@@ -37,7 +37,7 @@ describe("ListEmpresaPontosUseCase", () => {
     arrange.forEach(async (ponto) => {
       await pontoRepository.save(ponto);
     });
-    useCase = new ListEmpresaPontosUseCase(pontoRepository);
+    useCase = new ListFuncionarioPontosUseCase(pontoRepository);
   });
 
   it("deve retorna pontos abertos de funcionario_id", async () => {

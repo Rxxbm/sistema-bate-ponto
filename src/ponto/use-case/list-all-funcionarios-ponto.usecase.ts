@@ -2,7 +2,7 @@ import { UseCase } from "../../@thirdparty/use-case/use-case.interface";
 import { Ponto } from "../domain/ponto";
 import { PontoRepository } from "../infra/ponto.repository";
 
-export class ListEmpresaPontosUseCase implements UseCase<Input, Output> {
+export class ListFuncionarioPontosUseCase implements UseCase<Input, Output> {
   constructor(private readonly pontoRepository: PontoRepository) {}
 
   async execute(data: Input): Promise<Output> {
@@ -20,7 +20,6 @@ export class ListEmpresaPontosUseCase implements UseCase<Input, Output> {
         await this.pontoRepository.findAllClosedPontoByFuncionarioId(
           funcionario_id
         );
-      console.log("CAE O VALOR " + pontos);
       return pontos;
     }
 

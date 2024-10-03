@@ -8,6 +8,8 @@ export interface PontoRepository extends InMemoryRepository<Ponto> {
   findByEmpresaId(empresa_id: string): Promise<Ponto[]>;
   findAllOpenPontoByEmpresaId(empresa_id: string): Promise<Ponto[]>;
   findAllClosedPontoByEmpresaId(empresa_id: string): Promise<Ponto[]>;
+  findAllPontoByFuncionarioId(funcionario_id: string): Promise<Ponto[]>;
+  findAllClosedPontoByFuncionarioId(funcionario_id: string): Promise<Ponto[]>;
 }
 
 export class PontoInMemoryRepository extends InMemoryRepository<Ponto> {
@@ -32,6 +34,20 @@ export class PontoInMemoryRepository extends InMemoryRepository<Ponto> {
   async findAllClosedPontoByEmpresaId(empresa_id: string): Promise<Ponto[]> {
     return this.entities.filter(
       (ponto) => ponto.checkout && ponto.empresa_id === empresa_id
+    );
+  }
+
+  async findAllPontoByFuncionarioId(funcionario_id: string): Promise<Ponto[]> {
+    return this.entities.filter(
+      (ponto) => ponto.funcionario_id === funcionario_id
+    );
+  }
+
+  async findAllClosedPontoByFuncionarioId(
+    funcionario_id: string
+  ): Promise<Ponto[]> {
+    return this.entities.filter(
+      (ponto) => ponto.checkout && ponto.funcionario_id === funcionario_id
     );
   }
 }
