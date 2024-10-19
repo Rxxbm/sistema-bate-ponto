@@ -13,6 +13,11 @@ export interface PontoRepository extends InMemoryRepository<Ponto> {
 }
 
 export class PontoInMemoryRepository extends InMemoryRepository<Ponto> {
+  
+  async findAll(): Promise<Ponto[]> {
+    return this.entities; // Retorna os pontos armazenados em memória
+  }
+  
   async findOpenPontoByFuncionarioId(
     funcionario_id: string
   ): Promise<Ponto | undefined> {
