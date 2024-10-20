@@ -24,7 +24,6 @@ describe("createEmpresaUseCase", () => {
 
     const empresa = new Empresa(input);
 
-    console.log(await EmpresaRepository.findByCnpj(input.cnpj));
 
     const result = await useCase.execute(input);
 

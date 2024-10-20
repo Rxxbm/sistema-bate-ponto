@@ -71,13 +71,11 @@ describe("PontoInMemoryRepository", () => {
     arrange.forEach(async (ponto) => await repository.save(ponto));
 
     const closedPonto = new Ponto({ ...ponto, id: "5", empresa_id: "1" });
-    console.log(closedPonto);
     closedPonto.fechar_ponto();
 
     await repository.save(closedPonto);
 
     let pontos = await repository.findByEmpresaId("1");
-    console.log(pontos);
     expect(pontos).toEqual([arrange[0], arrange[1], closedPonto]);
 
     pontos = await repository.findByEmpresaId("2");

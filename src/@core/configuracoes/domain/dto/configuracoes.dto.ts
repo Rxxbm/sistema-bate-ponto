@@ -11,10 +11,6 @@ export class configuracoesCreateDTO {
   @IsNotEmpty({ message: "O campo de minimo semanal não pode estar vazio." })
   min_semanal: string;
 
-  @IsString({ message: "O maximo semanal da empresa deve ser uma string." })
-  @IsNotEmpty({ message: "O maximo semanal da empresa não pode estar vazio." })
-  max_semanal: string;
-
   @IsString({ message: "O intervalo minimo da empresa deve ser uma string." })
   @IsNotEmpty({ message: "O intervalo minimo da empresa não pode estar vazio." })
   intervalo_min: string;

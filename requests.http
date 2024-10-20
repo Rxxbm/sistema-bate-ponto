@@ -23,3 +23,20 @@ Content-Type: application/json
   "name": "Rubinhos enterprise",
   "cnpj": "1234567829033a1234"
 }
+
+### configuracoes
+
+GET http://localhost:3000/configuracao
+
+###
+
+POST http://localhost:3000/configuracao
+Content-Type: application/json
+
+{
+  "empresa_id": "550e8400-e29b-41d4-a716-446655440002",
+  "min_semanal": "48h",
+  "max_diaria": "18:00",
+  "intervalo_min": "01:00",
+  "intervalo_max": "02:00"
+}
