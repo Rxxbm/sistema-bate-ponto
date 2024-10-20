@@ -3,6 +3,7 @@ import { ConfiguracaoController } from './configuracoes.controller';
 import { ConfiguracoesInMemoryRepository, ConfiguracoesRepository } from '../@core/configuracoes/infra/configuracoes.repository'; 
 import { ListConfiguracoesUseCase } from '../@core/configuracoes/use-case/list-configuracoes.usecase'; 
 import { CreateConfiguracaoUseCase } from '../@core/configuracoes/use-case/create-configuracao.usecase'; 
+import { FindConfiguracaoByEmpresaIdUseCase } from '../@core/configuracoes/use-case/find-configuracao-by-empresa-id';
 
 @Module({
   controllers: [ConfiguracaoController], 
@@ -21,7 +22,12 @@ import { CreateConfiguracaoUseCase } from '../@core/configuracoes/use-case/creat
       useFactory: (configuracaoRepository: ConfiguracoesRepository) => new CreateConfiguracaoUseCase(configuracaoRepository),
       inject: ['ConfiguracaoRepository'], 
     },
+    {
+      provide: FindConfiguracaoByEmpresaIdUseCase, 
+      useFactory: (configuracaoRepository: ConfiguracoesRepository) => new FindConfiguracaoByEmpresaIdUseCase(configuracaoRepository),
+      inject: ['ConfiguracaoRepository'], 
+    },
   ],
-  exports: [ListConfiguracoesUseCase], 
+  exports: [ListConfiguracoesUseCase, FindConfiguracaoByEmpresaIdUseCase], 
 })
 export class ConfiguracaoModule {}

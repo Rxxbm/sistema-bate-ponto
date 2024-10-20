@@ -34,6 +34,6 @@ import { FindFuncionariosByEmpresaIdUseCase } from '../@core/funcionario/use-cas
       inject: ['FuncionarioRepository'],
     },
   ],
-  exports: [ListFuncionariosUseCase],
+  exports: [ListFuncionariosUseCase, FindFuncionarioByIdUseCase],
 })
 export class FuncionarioModule {}

@@ -1,3 +1,4 @@
+### ponto
 GET http://localhost:3000/ponto
 
 ###
@@ -6,8 +7,17 @@ POST http://localhost:3000/ponto
 Content-Type: application/json
 
 {
-  "funcionario_id": "a116317d-9b5d-44a1-a2c5-c4b66d760b11",
-  "empresa_id": "fdc799c7-9ac4-43bd-9716-bc480fdd4a76"
+  "funcionario_id": "6f5013a5-e750-42e9-894a-f8a256df4571",
+  "empresa_id": "cc1f6b5e-f5e9-489a-9c93-1addf2cad8b0"
+}
+
+###
+
+PATCH http://localhost:3000/ponto
+Content-Type: application/json
+
+{
+  "funcionario_id": "6f5013a5-e750-42e9-894a-f8a256df4571"
 }
 
 ### empresa
@@ -20,8 +30,8 @@ POST http://localhost:3000/empresa
 Content-Type: application/json
 
 {
-  "name": "Rubinhos enterprise",
-  "cnpj": "1234567829033a1234"
+  "name": "Rubinhsos enterprise",
+  "cnpj": "123456782a9033a1234"
 }
 
 ### configuracoes
@@ -34,7 +44,7 @@ POST http://localhost:3000/configuracao
 Content-Type: application/json
 
 {
-  "empresa_id": "550e8400-e29b-41d4-a716-446655440002",
+  "empresa_id": "cc1f6b5e-f5e9-489a-9c93-1addf2cad8b0",
   "min_semanal": "48h",
   "max_diaria": "18:00",
   "intervalo_min": "01:00",
@@ -51,9 +61,9 @@ POST http://localhost:3000/funcionario
 Content-Type: application/json
 
 {
-  "cargo": "Desenvolvedor WEB",
-  "usuario_id": "524cf88b-539b-4624-bd7b-3919d5da9dd4",
-  "empresa_id": "524cb88b-539b-4624-bd7b-3919d5da9dd4"
+  "cargo": "Desenvolvedor JAVA",
+  "usuario_id": "a75e9794-b8d6-430e-a305-7ab642e3a78b",
+  "empresa_id": "cc1f6b5e-f5e9-489a-9c93-1addf2cad8b0"
 }
 
 ###
