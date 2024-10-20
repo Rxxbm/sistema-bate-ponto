@@ -1,1 +1,25 @@
 GET http://localhost:3000/ponto
+
+###
+
+POST http://localhost:3000/ponto
+Content-Type: application/json
+
+{
+  "funcionario_id": "a116317d-9b5d-44a1-a2c5-c4b66d760b11",
+  "empresa_id": "fdc799c7-9ac4-43bd-9716-bc480fdd4a76"
+}
+
+### empresa
+
+GET http://localhost:3000/empresa
+
+###
+
+POST http://localhost:3000/empresa
+Content-Type: application/json
+
+{
+  "name": "Rubinho enterprise",
+  "cnpj": "12345678290331234"
+}
