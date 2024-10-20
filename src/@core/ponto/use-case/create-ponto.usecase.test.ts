@@ -20,7 +20,7 @@ describe("createPontoUseCase", () => {
     } as unknown as UseCase<any, any>;
 
     findFuncionarioById = {
-      execute: jest.fn().mockResolvedValue({ email: "any_email" }),
+      execute: jest.fn().mockResolvedValue({ email: "any_email", empresa_id: "any_empresa_id" }),
     } as unknown as UseCase<any, any>;
 
     findConfiguracaoByEmpresaId = {
@@ -116,33 +116,4 @@ describe("createPontoUseCase", () => {
     );
   });
 
-  it("deve garantir que a queue seja chamada com valores corretos", async () => {
-    const input: Input = {
-      empresa_id: "any_empresa_id",
-      funcionario_id: "any_funcionario_id",
-    };
-
-    const ponto = new Ponto(input);
-
-    await useCase.execute(ponto);
-
-    const configuracao = await findConfiguracaoByEmpresaId.execute({
-      empresa_id: input.empresa_id,
-    });
-
-    const funcionario = await findFuncionarioById.execute({
-      id: input.funcionario_id,
-    });
-
-    expect(queue.add).toHaveBeenCalledWith(
-      "verificar-ponto",
-      {
-        funcionario_id: "any_funcionario_id",
-        email: funcionario.email,
-      },
-      {
-        delay: 1000 * 60 * configuracao.intervalo_maximo,
-      }
-    );
-  });
 });

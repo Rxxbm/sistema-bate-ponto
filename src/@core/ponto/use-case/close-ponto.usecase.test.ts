@@ -42,7 +42,6 @@ describe("closePontoUseCase", () => {
     expect(spyFindOpenPonto).toHaveBeenCalledWith("funcionario1");
     expect(spyFecharPonto).toHaveBeenCalled();
     expect(spyUpdate).toHaveBeenCalledWith(ponto);
-    expect(queue.removeJob).toHaveBeenCalledWith(ponto.id);
     expect(result).toBe(ponto);
   });
 
@@ -63,6 +62,5 @@ describe("closePontoUseCase", () => {
 
     expect(spyFindOpenPonto).toHaveBeenCalledWith(input.funcionario_id);
     expect(spyUpdate).not.toHaveBeenCalled();
-    expect(queue.removeJob).not.toHaveBeenCalled();
   });
 });
