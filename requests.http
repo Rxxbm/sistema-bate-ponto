@@ -40,3 +40,26 @@ Content-Type: application/json
   "intervalo_min": "01:00",
   "intervalo_max": "02:00"
 }
+
+### funcionario
+
+GET http://localhost:3000/funcionario
+
+###
+
+POST http://localhost:3000/funcionario
+Content-Type: application/json
+
+{
+  "cargo": "Desenvolvedor WEB",
+  "usuario_id": "524cf88b-539b-4624-bd7b-3919d5da9dd4",
+  "empresa_id": "524cb88b-539b-4624-bd7b-3919d5da9dd4"
+}
+
+###
+
+GET http://localhost:3000/funcionario/7d6bdcef-a17f-4b76-8301-270247de2af0
+
+###
+
+GET http://localhost:3000/funcionario/empresa/524cb88b-539b-4624-bd7b-3919d5da9dd4
