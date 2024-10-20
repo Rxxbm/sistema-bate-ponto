@@ -73,3 +73,19 @@ GET http://localhost:3000/funcionario/7d6bdcef-a17f-4b76-8301-270247de2af0
 ###
 
 GET http://localhost:3000/funcionario/empresa/524cb88b-539b-4624-bd7b-3919d5da9dd4
+
+### usuario
+
+GET http://localhost:3000/usuario
+
+###
+
+POST http://localhost:3000/usuario
+Content-Type: application/json
+
+{
+  "nome": "Rubens",
+  "email": "rubem@email.com",
+  "senha": "123456",
+  "tipo_usuario": "funcionario"
+}
