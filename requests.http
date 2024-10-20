@@ -20,6 +20,6 @@ POST http://localhost:3000/empresa
 Content-Type: application/json
 
 {
-  "name": "Rubinho enterprise",
-  "cnpj": "12345678290331234"
+  "name": "Rubinhos enterprise",
+  "cnpj": "1234567829033a1234"
 }
