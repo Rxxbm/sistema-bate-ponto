@@ -1,8 +1,9 @@
 import { Module } from "@nestjs/common";
 import { PontoModule } from './ponto/ponto.module';
+import { EmpresaModule } from "./empresa/empresa.module";
 
 @Module({
-  imports: [PontoModule],
+  imports: [PontoModule, EmpresaModule],
   controllers: [],
   providers: [],
 })
