@@ -23,8 +23,6 @@ export class closePontoUseCase implements UseCase<Input, Output> {
 
     await this.pontoRepository.update(ponto);
 
-    await this.queue.removeJob(ponto.id);
-
     return ponto;
   }
 }

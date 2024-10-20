@@ -26,23 +26,17 @@ export class createPontoUseCase implements UseCase<Input, Output> {
       throw new Error("Já existe um ponto aberto para esse funcionário");
     }
 
+    if(funcionario.empresa_id !== empresa_id){
+      throw new Error("Funcionário não pertence a empresa");
+    }
+
     const ponto = new Ponto(data);
-    await this.pontoRepository.save(ponto);
 
     const configuracao = await this.findConfiguracaoByEmpresaId.execute({
       empresa_id,
     });
 
-    await this.queue.add(
-      "verificar-ponto",
-      {
-        funcionario_id: funcionario_id,
-        email: funcionario.email,
-      },
-      {
-        delay: 1000 * 60 * configuracao.intervalo_maximo,
-      }
-    );
+    await this.pontoRepository.save(ponto);
 
     return ponto;
   }
